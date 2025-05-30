@@ -492,7 +492,7 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1">
-                                <span class="fw-semibold d-block">John Doe</span>
+                                <span class="fw-semibold d-block">{{ Auth::guard('admin')->user()->name }}</span>
                                 <small class="text-muted">Admin</small>
                             </div>
                             </div>
@@ -526,7 +526,7 @@
                         <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                        <a class="dropdown-item" href="auth-login-basic.html">
+                        <a class="dropdown-item" href="{{ route('admin.logout') }}">
                             <i class="bx bx-power-off me-2"></i>
                             <span class="align-middle">Log Out</span>
                         </a>
@@ -551,7 +551,7 @@
                         <div class="d-flex align-items-end row">
                         <div class="col-sm-7">
                             <div class="card-body">
-                            <h5 class="card-title text-primary">Congratulations John! 🎉</h5>
+                            <h5 class="card-title text-primary">Congratulations {{ Auth::guard('admin')->user()->name }}! 🎉</h5>
                             <p class="mb-4">
                                 You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
                                 your profile.

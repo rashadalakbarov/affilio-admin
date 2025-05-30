@@ -103,17 +103,28 @@
                                 </a>
                             </div>
 
-                            <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+                            @if (Session::has('success'))
+                                <div class="alert alert-success" role="alert">{{ Session::get('success') }}</div>
+                            @endif
+
+                            @if (Session::has('error'))
+                                <div class="alert alert-danger" role="alert">{{ Session::get('error') }}</div>
+                            @endif
+
+                            <form id="formAuthentication" class="mb-3" action="{{route('admin.index.auth')}}" method="POST" autocomplete="off">
+                                @csrf
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email or Username</label>
+                                    <label for="email" class="form-label">Email</label>
                                     <input
-                                        type="text"
-                                        class="form-control"
+                                        type="email"
+                                        class="form-control @error('email') is-invalid @enderror"
                                         id="email"
-                                        name="email-username"
-                                        placeholder="Enter your email or username"
-                                        autofocus
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        value="{{old('email')}}"
+                                        required
                                     />
+                                    @error('email') <p class="invalid-feedback">{{ $message }}</p> @enderror
                                 </div>
 
                                 <div class="mb-3 form-password-toggle">
@@ -125,14 +136,16 @@
                                     </div>
                                     <div class="input-group input-group-merge">
                                         <input
-                                        type="password"
-                                        id="password"
-                                        class="form-control"
-                                        name="password"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        aria-describedby="password"
+                                            type="password"
+                                            id="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            name="password"
+                                            placeholder="********"
+                                            aria-describedby="password"
+                                            required
                                         />
                                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                        @error('password') <p class="invalid-feedback">{{ $message }}</p> @enderror
                                     </div>
                                 </div>
                                 <div class="mb-3">
