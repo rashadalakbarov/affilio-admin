@@ -15,6 +15,6 @@ class CompanySettingsSeeder extends Seeder
     public function run(): void
     {
         CompanySettings::updateOrCreate(['key' => 'name'], ['value' => 'Allwearly']);
-        CompanySettings::updateOrCreate(['key' => 'logo'], ['value' => 'assets/img/logo.png']);
+        CompanySettings::updateOrCreate(['key' => 'logo'], ['value' => 'logo.png']);
     }
 }

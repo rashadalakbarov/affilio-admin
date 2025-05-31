@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\CompanySettings;
 use Illuminate\Support\Facades\File;
 
+use Illuminate\Support\Facades\Storage;
+
 class MyCompanyController extends Controller
 {
     public function edit(){
@@ -22,17 +24,33 @@ class MyCompanyController extends Controller
         ]);
         CompanySettings::setValue('name', $request->input('company_name'));
 
-        if ($request->hasFile('company_logo')) {
-            $image = $request->file('company_logo');
-            $imageName = 'company_logo.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('assets/img/' . $imageName);
+        // if ($request->hasFile('company_logo')) {
+        //     $image = $request->file('company_logo');
+        //     $imageName = 'company_logo.' . $image->getClientOriginalExtension();
+        //     $imagePath = public_path('assets/img/' . $imageName);
 
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
+        //     if (File::exists($imagePath)) {
+        //         File::delete($imagePath);
+        //     }
+
+        //     $path = $image->move(public_path('assets/img/'), $imageName);
+        //     CompanySettings::setValue('logo', $imageName);
+        // }
+
+        if ($request->hasFile('company_logo')) {
+            $file = $request->file('company_logo');
+
+            // Önceki logoyu sil
+            $oldPath = CompanySettings::getValue('logo');
+            if ($oldPath && Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
             }
 
-            $path = $image->move(public_path('assets/img/'), $imageName);
-            CompanySettings::setValue('logo', $imageName);
+            // Yeni logoyu kaydet
+            $path = $file->store('logo', 'public'); // storage/app/public/logo
+
+            // Veritabanına kaydet
+            CompanySettings::setValue('logo', $path);
         }
 
         return redirect()->back()->with('success', 'Settings updated successfully.');

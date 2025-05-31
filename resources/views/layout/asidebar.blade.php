@@ -2,7 +2,7 @@
     <div class="app-brand demo py-0">
         <a href="{{route('admin.dashboard')}}" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ $company['logo'] === 'logo.png' ? asset('assets/img/logo.png') : asset('assets/img/' . $company['logo'])}}" width="80" alt="Logo"><br>
+                <img src="{{ $company['logo'] === 'logo.png' ? asset('assets/img/logo.png') : asset('storage/' . ($company['logo'] ?? '')) }}" width="80" alt="Logo"><br>
             </span>
             <span class="app-brand-text demo menu-text fw-bolder ms-2 text-capitalize">{{ $company['name'] }}</span>
         </a>

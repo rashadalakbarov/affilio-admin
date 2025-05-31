@@ -33,9 +33,7 @@
                         @error('company_logo') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
-                    @if(isset($settings['logo']) == 'logo.png')
-                        <img src="{{ $settings['logo'] === 'logo.png' ? asset('assets/img/logo.png') : asset('assets/img/' . $settings['logo'])}}" width="100" alt="Logo" class="border mb-3"><br>
-                    @endif
+                    <img src="{{ $settings['logo'] === 'logo.png' ? asset('assets/img/logo.png') : asset('storage/' . ($company['logo'] ?? '')) }}" width="100" alt="Logo" class="border mb-3"><br>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
