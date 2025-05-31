@@ -13,7 +13,7 @@ class CompanyController extends Controller
     public function index(): JsonResponse {
         $data = [
             'name' => CompanySettings::getValue('name'),
-            'logo' => asset(CompanySettings::getValue('logo')),
+            'logo' => asset('storage/'. CompanySettings::getValue('logo')),
         ];
 
         return response()->json($data);
